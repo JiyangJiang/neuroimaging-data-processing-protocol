@@ -155,15 +155,19 @@
 
 	2.3 MRtrix3 and FSL
 
-		dwifslpreproc
+		2.3.1 mrtrix
 
-			eddy options
+			
+
+		2.3.2 fsl
+
+			2.3.2.1 eddy_cuda options
 
 				--slm linear
 
-				MW4 has more than 60 directions, but the vectors do not cover the whole sphere. Therefore, '--slm linear' option is used.
+					MW4 has more than 60 directions, but the vectors do not cover the whole sphere.
 
-			eddy QC
+			2.3.2.2 eddy QC
 
 				Ref : https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide
 
