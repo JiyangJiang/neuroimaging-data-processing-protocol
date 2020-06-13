@@ -1,14 +1,7 @@
 # neuroimaging-data-processing-protocol
 Neuroimaging data processing protocol for MAS, OATS and SCS studies housed at CHeBA NiL
 
-<html>
-<body>
-<p style="font-weight:bold;color:blue">technical_notes.txt</p>
 
-<p>Summarise the processing that has been conducted on neuroimaing data, and the rationale for the choice of options, etc.</p>
+<b>technical_notes.txt</b> : Summarise the processing that has been conducted on neuroimaing data, and the rationale for the choice of options, etc.
 
-<p style="font-weight:bold;color:blue">user_guide.txt</p>
-
-<p>Describe how to use the data from a user's perspective.</p>
-</body>
-</html>
+<b>user_guide.txt</b> : Describe how to use the data from a user's perspective.
