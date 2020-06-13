@@ -157,7 +157,11 @@
 
 		2.3.1 mrtrix
 
-			
+			dwidenoise -force -noise noise.mif in.mif dwidenoise.mif
+			mrdegibbs -force -axes 0,1 dwidenoise.mif mrdegibbs.mif
+			mrconvert -force -export_grad_fsl bvec bval mrdegibbs.mif mrdegibbs.nii.gz
+
+			mrdegibbs.nii.gz, bvec, and bval are then used in FSL's eddy_cuda (see Section 2.3.2.1).
 
 		2.3.2 fsl
 
