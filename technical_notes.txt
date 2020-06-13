@@ -1,0 +1,215 @@
++ ============================================================================ +
++                                                                              +
++                            TECHNICAL NOTES                                   +
++                                                                              +
++ ============================================================================ +
++																			   +
++ This decument is to record the choice of methodology, conducted neuroimaging +
++ data processing, any techinical issues/solutions in Sydney Memory and Ageing +
++ Study (MAS), Older Australian Twins Study (OATS), and Sydney Centenarians    +
++ Study (SCS).																   +
++																			   +
++ This document is prepared by Dr. Jiyang Jiang (jiyang.jiang@unsw.edu.au)     +
++                              Dr. Wei Wen      (w.wen@unsw.edu.au)            +
++																			   +
++ ============================================================================ +
+
+1. T1-weighted scans
+
+	1.1 Numbers (after removing bad-quality scans)
+
+		N (MW124 raw T1) = 1,227
+
+		N (MW1 raw T1)   = 541
+		N (MW2 raw T1)   = 424
+		N (MW4 raw T1)   = 262
+
+		N (MW12 raw T1)  = 146 pairs
+		N (MW14 raw T1)  = 28 pairs
+		N (MW24 raw T1)  = 31 pairs
+		N (MW124 raw T1) = 200 pairs *
+
+		* Subjects with all three time points (MW124) were first picked before looking for two time points (e.g. MW12, MW14, or MW24).
+
+	1.2 Scanning parameters
+
+		TO-DO : fill in T1w scanning parameters.
+
+	1.3 Issue with data
+
+		None
+
+	1.4 FreeSurfer
+
+		FreeSurfer's recon-all was applied to quantify cortical measures, including
+		cortical thickness, area, volume, etc.
+
+		1.4.1 FreeSurfer version
+
+			FreeSurfer version 7.1.0 was used. To be specific, freesurfer-linux-centos7_x86_64-7.1.0-20200511-813297b.
+
+		1.4.2 recon-all options
+
+			Multiple combinations of recon-all options were tested to seek optimal outcome
+			from recon-all. These include:
+
+				recon-all -s <subj> -i <t1_nifti> -all
+				recon-all -s <subj> -i <t1_nifti> -wsatlas -all #use atlas for skull stripping
+				recon-all -s <subj> -i <t1_nifti> -bigventricles -all
+				antsRegistrationSyNQuick.sh -d 3 -f <t1_nifti> -m <flair_nifti> -o <inplaneFLAIR> -t a ; recon-all -subjid <subj> -i <t1_nifti> -FLAIR <inplaneFLAIR> -FLAIRpial -all #use FLAIR to improve pial surface reconstruction
+
+			Results showed that 
+
+				1) skull stripping using atlas (-wsatlas) slightly improved brain extraction results.
+				2) benefit from adding '-bigventricles' was minimal
+				3) adding FLAIR messed up pial surface reconstruction. This is likely due to the loose FLAIR acquisition resolution (0.8*0.8*3.5). Ref = https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg63099.html. With an isotropic FLAIR acquisition, FLAIR is demonstrated to significantly improve the quality of pial surface reconstruction.
+
+			Therefore, MAS, OATS and SCS FreeSurfer recon-all processing was carried out with the following command:
+
+				recon-all -s <subj> -i <t1_nifti> -wsatlas -all
+
+		1.4.3 recon-all failure not salvageable
+
+		1.4.4 Quality control
+
+			ENIGMA Cortical Quality Control Protocol 2.0 (http://enigma.ini.usc.edu/protocols/imaging-protocols/) was applied for quality control of recon-all results. Briefly,
+
+				1) identify subjects with cortical thickness and surface area values that deviate from the rest of your subjects
+				2) internal surface QC - display slices showing segmentation of cortical ROIs
+				3) external surface QC - display pial surface on 3D brains.
+
+		1.4.5 Longitudinal pipeline
+
+		1.4.6 Hippocampal subfields and nuclei of amygdala
+
+			Ref : https://surfer.nmr.mgh.harvard.edu/fswiki/HippocampalSubfieldsAndNucleiOfAmygdala
+
+			Standard hipppcampual and amygdalar substructure extraction using only T1w.
+
+			1.4.6.1 cross-sectional
+
+				segmentHA.sh <subj> <SUBJECTS_DIR>
+
+			1.4.6.2 longitudinal
+
+			1.4.6.3 results extraction to csv
+
+		1.4.7 Brainstem substructures
+
+			https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures
+
+			Four brainstem substructures are segmented from T1w: medulla oblongata, pons, midbrain, and superior cerebellar peduncle (SCP).
+
+	1.5 fsl
+
+		1.5.1 fsl_anat
+
+			fsl_anat with default settings was run on all T1w data
+
+				fsl_anat -i <t1_nifti>
+				
+	1.6 ANTs
+
+	1.7 optiBET
+
+		optiBET was run on all T1w scans with default parameters for brain extraction:
+
+			optiBET.sh -i <t1_nifti>
+
+			Ref : https://montilab.psych.ucla.edu/fmri-wiki/optibet/
+
+		TO-DO : optiBET processing of some T1w images results in errors. This is to be examined.
+
+	1.8 acpcdetect
+
+		Default acpcdetect command was run on raw T1w.
+
+			acpcdetect -i <t1_nifti>
+
+	1.9 c3d
+
+
+2. Diffusion-weighted imaging
+
+	2.1 Numbers
+
+		N (MW1 dwi nifti) = 539
+		N (MW2 dwi nifti) = 423
+		N (MW4 dwi nifti) = 264
+
+	2.2 Scanning parameters
+
+		TO-DO : fill in DWI scanning parameters.
+
+	2.2 Issue with data
+
+		2.2.1 Missing bvec for some MW1 DWI scans
+
+			Some MW1 DWI scans missed bvecs. Since MW1 DWI has only 6 gradient directions, they are not likely to be used in studies. Therefore, efforts have not been put to salvage these scans.
+
+		2.2.2 Flipped bvec in MW2 DWI scans
+
+			The first dimension (x-dimension) of MW2 DWI scans was found to be flipped. The sign of the first dimension needs to be inversed.
+
+			TO-DO : check whether MW4 has the same issue.
+
+	2.3 MRtrix3 and FSL
+
+		dwifslpreproc
+
+			eddy options
+
+				MW4 has more than 60 directions, but the vectors do not cover the whole sphere. Therefore, '--slm linear' option is used.
+
+			eddy QC
+
+				Ref : https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddyqc/UsersGuide
+
+				NOT DONE YET.
+
+	2.4 UKFTractography
+
+3. resting-state BOLD imaging
+
+	3.1 Numbers
+
+		N (MW2 rsBOLD) = 49
+		N (MW4 rsBOLD) = 252
+		N (SCS rsBOLD) = 71
+
+	3.2 Scanning parameters
+
+	3.3 Issue with data
+
+		3.3.1 spatial resolution
+
+	3.4 Preprocessing
+
+		3.4.1 fMRIPrep
+
+		3.4.2 FSL FIX
+
+		3.4.3 motion outliers
+
+	3.5 Quality control
+
+		3.5.1 MRIQC
+
+	3.6 Brain connectivity toolbox
+
+	3.7 Dual regression
+
+4. resting-state ASL imaging
+
+	4.1 Numbers
+
+	4.2 Scanning parameters
+
+	4.3 Issue with data
+
+		4.3.1 PCASL vs. PASL
+
+	4.4 ASLtbx2
+
+	4.5 oxford_asl
+

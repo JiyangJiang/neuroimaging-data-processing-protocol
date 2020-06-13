@@ -1,0 +1,134 @@
++ =========================================================================
++                              User Guide
++ =========================================================================
++
++ This document is to explain how the imaging-derived phenotypes (IDPs)
++ extracted from Sydney Memory and Ageing Study (MAS), Older Australian
++ Twins Study (OATS), and Sydney Centenarians Study (SCS), should be
++ used.
++
++ You should find everything you, as a user, need for your study, including
++ scanning parameters and citations to be included in your manuscript.
++
++
++ This document is prepared by Dr. Jiyang Jiang (jiyang.jiang@unsw.edu.au)
++                              Dr. Wei Wen      (w.wen@unsw.edu.au)
++
++ =========================================================================
+
+
+
+1. Cortical Thickness/volume/area from FreeSurfer
+
+	1.1 Numbers
+
+	1.2 Scanning parameters of T1w images
+
+	1.3 Quality control
+
+		FreeSurfer results have been visually checked to assure quality. This is through applying ENIGMA Cortical Quality Control Protocol 2.0 (Ref : http://enigma.ini.usc.edu/protocols/imaging-protocols/). For description, refer to section 1.5 Citations.
+
+	1.4 FreeSurfer version
+
+		The latest FreeSurfer version 7.1.0 (as of June 2020) was used for cortical reconstruction and volumetric segmentation.
+
+	1.5 Citations
+
+		The following paragrah should be added to the 'Method' section of your manuscript to describe FreeSurfer reconstruction and quality control on FreeSurfer results (Ref : https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferMethodsCitation)
+
+		'Cortical reconstruction and volumetric segmentation was performed with FreeSurfer v7.1.0 [doi: 10.1016/j.neuroimage.2012.01.021]. Briefly, --==TBC==--'
+
+	1.6 Results
+
+		You are most likely to be interested in cortical thickness, area and volume on left and right hemisphere. Note that it is NOT recommended to use subcortical volumes from *.aseg.volume or *.aseg.volume.etiv_perc, as these results are often inaccurate (Ref : https://bookdown.org/u0243256/tbicc/freesurfer.html#volume-in-mm3). Please use volumes in Section '2. Volumes of subcortical grey matter structures and their substructures'. For filenaming convention, take OATS Wave 1,2,3 cross-sectional outputs as an example:
+
+		*.aseg.volume
+
+			Subcortical grey matter volumes. This spreadsheet also includes volumes of large ROIs, e.g. brain soft tissue (BrainSegVolNotVent), cortex, total grey matter, etc. Intracranial volume (ICV; listed as 'EstimatedTotalIntraCranialVol' in the last column) can also be found in this spreadsheet.
+
+		*.aparc.volume.rh.aparc and *.aparc.volume.lh.aparc
+
+			Volumes of cortical ROIs in right/left hemisphere.
+
+		*.aparc.thickness.rh.aparc and *.aparc.thickness.lh.aparc
+
+			Mean thickness of cortical ROIs in right/left hemisphere.
+
+		*.aparc.area.rh.aparc and *.aparc.area.lh.aparc
+
+			Areas of cortical ROIs in right/left hemisphere.
+
+		*.aparc
+
+			Using standard parcellation scheme (68 ROIs; Desikan-Killiany atlas)
+
+		*.aparc.a2009s
+
+			Same measure (e.g. volume) with a finer parcellation scheme (148 ROIs; Destrieux atlas)
+
+		*.etiv_perc
+
+			Same as the file with filename without '.etiv_perc', but volumes are standardised (i.e. presented as percent ICV).
+
+		*.aseg.wm_vol and *.aseg.wm_vol.etiv_perc
+
+			Regional white matter volumes.
+
+		+++ TO-DO : split cross-sectional results for each individual Wave.
+
+	1.7 Lobar volumes
+
+		If you are interested in lobar volumes, you can sum volumes of ROIs belonging to the corresponding lobe. In Desikan-Killiany atlas (i.e. in *.aparc.volume.lh.aparc and *.aparc.volume.rh.aparc, not *.aparc.volume.lh.aparc.a2009s or *.aparc.volume.rh.aparc.a2009s), the mapping of individual ROIs is listed below (Ref : https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation):
+
+		Frontal
+			Superior Frontal
+			Rostral and Caudal Middle Frontal
+			Pars Opercularis, Pars Triangularis, and Pars Orbitalis
+			Lateral and Medial Orbitofrontal
+			Precentral
+			Paracentral
+			Frontal Pole
+		Parietal
+			Superior Parietal
+			Inferior Parietal
+			Supramarginal
+			Postcentral
+			Precuneus
+		Temporal
+			Superior, Middle, and Inferior Temporal
+			Banks of the Superior Temporal Sulcus
+			Fusiform
+			Transverse Temporal
+			Entorhinal
+			Temporal Pole
+			Parahippocampal
+		Occipital
+			Lateral Occipital
+			Lingual
+			Cuneus
+			Pericalcarine
+		Cingulate (if you want to include in a lobe)
+			Rostral Anterior (Frontal)
+			Caudal Anterior (Frontal)
+			Posterior (Parietal)
+			Isthmus (Parietal)
+
+	1.8 Lobar average thickness
+
+		Mean thickness of lobes CANNOT be achieved by simply averaging the mean thickness of the ROIs associated to a lobe, as ROIs are not of the same size. Instead, area should be added as a weighting factor in calculating mean thickness of lobes (Ref : https://surfer.nmr.mgh.harvard.edu/fswiki/UserContributions/FAQ#Q.Iamtryingtomeasuretheglobalmeancorticalthickness.28i.ecombinedacrosshemispheres.29.HowwouldIdothis.3F).
+
+		lobar.thickness = [(ROI_1.thickness * ROI_1.area) + (ROI_2.thickness * ROI_2.area) + ... + (ROI_N.thickness * ROI_N.area)] / (ROI_1.area + ROI_2.area + ... + ROI_N.area)
+
+	1.9 Global white matter volume
+
+		Volumes of lhCerebralWhiteMatter/rhCerebralWhiteMatter/CerebralWhiteMatter includes hypointensite voxels on T1w (also known as white matter hyperintensities and white matter lesions), but do not include cerebellar white matter or brainstem.
+
+2. Volumes of subcortical grey matter structures and their substructures
+
+	Subcortical grey matter volumes in this section should be used, instead of *.aseg.volume or *.aseg.volume.etic_perc (Ref : https://bookdown.org/u0243256/tbicc/freesurfer.html#volume-in-mm3).
+
+	2.1 Hippocampal subfields
+
+	2.2 Amygdalar substructures
+
+	2.3 Brainstem substructures
