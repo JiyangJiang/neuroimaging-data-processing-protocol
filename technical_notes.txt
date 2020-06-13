@@ -159,6 +159,8 @@
 
 			eddy options
 
+				--slm linear
+
 				MW4 has more than 60 directions, but the vectors do not cover the whole sphere. Therefore, '--slm linear' option is used.
 
 			eddy QC
