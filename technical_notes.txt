@@ -88,13 +88,17 @@
 
 				Standard hipppcampual and amygdalar substructure extraction using only T1w.
 
-				1.4.6.1 cross-sectional
+				1.4.6.1.1 cross-sectional
 
 					segmentHA_T1.sh <subj> <SUBJECTS_DIR>
 
-				1.4.6.2 longitudinal
+				1.4.6.1.2 longitudinal
 
-				1.4.6.3 results extraction to csv
+				1.4.6.1.3 results extraction to csv
+
+					cross-sectional:
+
+					longitudinal:
 
 			1.4.6.2 using T1w + T2w FLAIR
 
@@ -112,7 +116,17 @@
 
 				Four brainstem substructures are segmented from T1w: medulla oblongata, pons, midbrain, and superior cerebellar peduncle (SCP). Ref : https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures
 
+				1.4.7.1.1 cross-sectional
+
 					segmentBS.sh <subj> <SUBJECTS_DIR>
+
+				1.4.7.1.2 longitudinal
+
+				1.4.7.1.3 results extraction to csv
+
+					cross-sectional:
+
+					longitudinal:
 
 			1.4.7.2 using other MRI modalities
 
