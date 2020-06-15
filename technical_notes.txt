@@ -84,21 +84,41 @@
 
 			Ref : https://surfer.nmr.mgh.harvard.edu/fswiki/HippocampalSubfieldsAndNucleiOfAmygdala
 
-			Standard hipppcampual and amygdalar substructure extraction using only T1w.
+			1.4.6.1 using T1w only
 
-			1.4.6.1 cross-sectional
+				Standard hipppcampual and amygdalar substructure extraction using only T1w.
 
-				segmentHA.sh <subj> <SUBJECTS_DIR>
+				1.4.6.1 cross-sectional
 
-			1.4.6.2 longitudinal
+					segmentHA.sh <subj> <SUBJECTS_DIR>
 
-			1.4.6.3 results extraction to csv
+				1.4.6.2 longitudinal
+
+				1.4.6.3 results extraction to csv
+
+			1.4.6.2 using T1w + T2w FLAIR
+
+				NOT DONE YET.
+
+			1.4.6.3 using other MRI modalities
+
+				Subfield volumes can also be calculated using other MRI modalities (e.g. DWI or fMRI) using vol2subfield. See Section 6 Multimodal integration at https://surfer.nmr.mgh.harvard.edu/fswiki/HippocampalSubfieldsAndNucleiOfAmygdala.
+
+				NOT DONE YET.
 
 		1.4.7 Brainstem substructures
 
-			https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures
+			1.4.7.1 T1w
 
-			Four brainstem substructures are segmented from T1w: medulla oblongata, pons, midbrain, and superior cerebellar peduncle (SCP).
+				https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures
+
+				Four brainstem substructures are segmented from T1w: medulla oblongata, pons, midbrain, and superior cerebellar peduncle (SCP).
+
+			1.4.7.2 using other MRI modalities
+
+				https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures (Section 6)
+
+				NOT DONE YET.
 
 	1.5 fsl
 
