@@ -18,18 +18,41 @@
 
 	1.1 Numbers (after removing bad-quality scans)
 
-		N (MW124 raw T1) = 1,227
+		1.1.1 MAS
 
-		N (MW1 raw T1)   = 541
-		N (MW2 raw T1)   = 424
-		N (MW4 raw T1)   = 262
+			N (MW124 raw T1) = 1,227
 
-		N (MW12 raw T1)  = 146 pairs
-		N (MW14 raw T1)  = 28 pairs
-		N (MW24 raw T1)  = 31 pairs
-		N (MW124 raw T1) = 200 pairs *
+			N (MW1 raw T1)   = 541
+			N (MW2 raw T1)   = 424
+			N (MW4 raw T1)   = 262
 
-		* Subjects with all three time points (MW124) were first picked before looking for two time points (e.g. MW12, MW14, or MW24).
+			N (MW12 raw T1)  = 146 pairs
+			N (MW14 raw T1)  = 28 pairs
+			N (MW24 raw T1)  = 31 pairs
+			N (MW124 raw T1) = 200 pairs *
+
+			N (MW124 successful cross-sectional recon-all) = 1,220 +
+
+		1.1.2 OATS
+
+			N (OW123 raw T1) = 948
+
+			N (OW1 raw T1)   = 421
+			N (OW2 raw T1)   = 290
+			N (OW3 raw T1)   = 237
+
+			N (OW12 raw T1)  = 75 pairs
+			N (OW13 raw T1)  = 23 pairs
+			N (OW23 raw T1)  = 10 pairs
+			N (OW123 raw T1) = 200 pairs *
+
+			N (OW123 successful cross-sectional recon-all) = 948 +
+
+		1.2.3 SCS
+
+
+		* Subjects with all three time points (MW124, OW123) were first picked before looking for two time points (e.g. MW12, OW12).
+		+ See Section 1.4.3 for not salvageables.
 
 	1.2 Scanning parameters
 
@@ -70,13 +93,33 @@
 
 		1.4.3 recon-all failure not salvageable
 
+			1.4.3.1 MAS
+
+				Seven MAS scans were not salvageable: 1494_w1,1493_w2,0699_w2,2851_w1,2851_w4,6420_w4,2007_w4
+
+				These failures are due to hitting walltime on Gadi cluster which is 48 hours. The reason for the excessive long run is that there are multiple defects to be fixed. FreeSurfer suggested that such defect fixing is taking long time and highly prone to errors.
+
+			1.4.3.2 OATS
+
+				None
+
+			1.4.3.3 SCS
+
+				TO DO
+
 		1.4.4 Quality control
 
-			ENIGMA Cortical Quality Control Protocol 2.0 (http://enigma.ini.usc.edu/protocols/imaging-protocols/) was applied for quality control of recon-all results. Briefly,
+			1.4.4.1 QC procedures
 
-				1) identify subjects with cortical thickness and surface area values that deviate from the rest of your subjects
-				2) internal surface QC - display slices showing segmentation of cortical ROIs
-				3) external surface QC - display pial surface on 3D brains.
+				ENIGMA Cortical Quality Control Protocol 2.0 (http://enigma.ini.usc.edu/protocols/imaging-protocols/) was applied for quality control of recon-all results. Briefly,
+
+					1) identify subjects with cortical thickness and surface area values that deviate from the rest of your subjects
+					2) internal surface QC - display slices showing segmentation of cortical ROIs
+					3) external surface QC - display pial surface on 3D brains.
+
+			1.4.4.2 group-level summary statistics
+
+				TO BE DONE
 
 		1.4.5 Longitudinal pipeline
 
@@ -112,9 +155,9 @@
 
 		1.4.7 Brainstem substructures
 
-			1.4.7.1 using T1w only
+			Four brainstem substructures : medulla oblongata, pons, midbrain, and superior cerebellar peduncle (SCP). Ref : https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures
 
-				Four brainstem substructures are segmented from T1w: medulla oblongata, pons, midbrain, and superior cerebellar peduncle (SCP). Ref : https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures
+			1.4.7.1 using T1w only
 
 				1.4.7.1.1 cross-sectional
 
@@ -133,6 +176,10 @@
 				https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures (Section 6)
 
 				NOT DONE YET.
+
+		1.4.8 Thalamic nuclei
+
+			parcellation of the thalamus into 25 different nuclei, using a probabilistic atlas built with histological data.
 
 	1.5 fsl
 
@@ -183,7 +230,7 @@
 
 		2.2.2 Flipped bvec in MW2 DWI scans
 
-			The first dimension (x-dimension) of MW2 DWI scans was found to be flipped. The sign of the first dimension needs to be inversed.
+			The first dimension (along x-axis) of MW2 DWI scans was found to be flipped. The sign of the first dimension needs to be inversed.
 
 			TO-DO : check whether MW4 has the same issue.
 
@@ -191,13 +238,17 @@
 
 		2.3.1 mrtrix
 
-			dwidenoise -force -noise noise.mif in.mif dwidenoise.mif
-			mrdegibbs -force -axes 0,1 dwidenoise.mif mrdegibbs.mif
-			mrconvert -force -export_grad_fsl bvec bval mrdegibbs.mif mrdegibbs.nii.gz
+			MRtrix is used as the main software package to process dwi with FSL's eddy_cuda for preprocessing (see Section 2.3.2). MRtrix processing includes:
 
-			mrdegibbs.nii.gz, bvec, and bval are then used in FSL's eddy_cuda (see Section 2.3.2.1).
+				dwidenoise -force -noise noise.mif in.mif dwidenoise.mif
+				mrdegibbs -force -axes 0,1 dwidenoise.mif mrdegibbs.mif
+				mrconvert -force -export_grad_fsl bvec bval mrdegibbs.mif mrdegibbs.nii.gz
+
+				mrdegibbs.nii.gz, bvec, and bval are then used in FSL's eddy_cuda (see Section 2.3.2.1).
 
 		2.3.2 fsl
+
+			eddy_cuda was applied to dwi data that have gone through MRtrix's dwidenoise and mrdegibbs.
 
 			2.3.2.1 eddy_cuda options
 
