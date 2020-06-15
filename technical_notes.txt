@@ -90,7 +90,7 @@
 
 				1.4.6.1 cross-sectional
 
-					segmentHA.sh <subj> <SUBJECTS_DIR>
+					segmentHA_T1.sh <subj> <SUBJECTS_DIR>
 
 				1.4.6.2 longitudinal
 
@@ -108,11 +108,11 @@
 
 		1.4.7 Brainstem substructures
 
-			1.4.7.1 T1w
+			1.4.7.1 using T1w only
 
-				https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures
+				Four brainstem substructures are segmented from T1w: medulla oblongata, pons, midbrain, and superior cerebellar peduncle (SCP). Ref : https://surfer.nmr.mgh.harvard.edu/fswiki/BrainstemSubstructures
 
-				Four brainstem substructures are segmented from T1w: medulla oblongata, pons, midbrain, and superior cerebellar peduncle (SCP).
+					segmentBS.sh <subj> <SUBJECTS_DIR>
 
 			1.4.7.2 using other MRI modalities
 
