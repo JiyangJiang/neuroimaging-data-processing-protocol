@@ -16,7 +16,25 @@
 +
 + =========================================================================
 
+0. Common issues
 
+	0.1 ID issues
+
+		If you come across any IDs with imaging data but not any other assessment data in MAS records, you should be able to find explanation from the following table:
+
+			Wave	|	MRI_ID	|	Explanation
+		--------------------------------------------------------------------------------------------
+			1		|	2949	|	This participant was excluded from the MAS sample before 1st release of data.
+			1		|	5586	|	This participant is not included in the MAS sample for analyses. Nicky Kochan's
+					|			|	'special participant' - we are treating her as a MAS participant but we are not
+					|			|	including her data in analyses.
+			1		|	5806	|	Excluded after baseline data was originally released.
+			1		|	6373	|	Excluded after baseline data was originally released.
+			2		|	0094	|	From scanner2 and excluded from release.
+
+	0.2 Scanner issues
+
+		There is a scanner change in the middle of MAS Wave 1 MRI data acquisition. Please ask CHeBA Data Bank for the spreadsheet of scanner, and include as a dummy variable in your analyses if MAS Wave 1 data are used.
 
 1. Cortical Thickness/volume/area from FreeSurfer
 
@@ -132,3 +150,5 @@
 	2.2 Amygdalar substructures
 
 	2.3 Brainstem substructures
+
+	2.4 Thalamic substructures
