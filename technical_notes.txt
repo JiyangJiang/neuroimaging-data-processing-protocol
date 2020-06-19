@@ -29,8 +29,8 @@
 
 			N (MW12 raw T1)  = 146 pairs
 			N (MW14 raw T1)  = 28 pairs
-			N (MW24 raw T1)  = 31 pairs
-			N (MW124 raw T1) = 200 pairs *
+			N (MW24 raw T1)  = 30 pairs
+			N (MW124 raw T1) = 201 pairs *
 
 			N (MW124 successful cross-sectional recon-all) = 1,220 +
 
@@ -146,7 +146,7 @@
 
 			1.4.6.2 using T1w + T2w FLAIR
 
-				NOT DONE YET.
+				NOT DONE YET. Also need to compare with T1w-only results.
 
 			1.4.6.3 using other MRI modalities
 
@@ -181,6 +181,12 @@
 		1.4.8 Thalamic nuclei
 
 			parcellation of the thalamus into 25 different nuclei, using a probabilistic atlas built with histological data.
+
+			1.4.8.1 using T1w only
+
+				1.4.8.1.1 cross-sectional
+
+					segmentThalamicNuclei.sh <subj> <SUBJECTS_DIR>
 
 	1.5 fsl
 
