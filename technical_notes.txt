@@ -247,11 +247,18 @@
 
 			MRtrix is used as the main software package to process dwi with FSL's eddy_cuda for preprocessing (see Section 2.3.2). MRtrix processing includes:
 
+			a) mrtrix_preprocessing_before-eddy_Gadi_cohort.sh
+
 				dwidenoise -force -noise noise.mif in.mif dwidenoise.mif
 				mrdegibbs -force -axes 0,1 dwidenoise.mif mrdegibbs.mif
 				mrconvert -force -export_grad_fsl bvec bval mrdegibbs.mif mrdegibbs.nii.gz
+				dwi2mask -force mrdegibbs.mif mask.mif # dwi2mask was found to be robust in generating masks.
+													   # Ref: https://bookdown.org/u0243256/tbicc/preprocessing-diffusion-images.html#mask-b0
+				mrconvert -force mask.mif mask.nii.gz
 
-				mrdegibbs.nii.gz, bvec, and bval are then used in FSL's eddy_cuda (see Section 2.3.2.1).
+			b) fsl_eddy_mas.sh
+
+				This runs on GRID. See Section 2.3.2 for details.
 
 		2.3.2 fsl
 
@@ -259,9 +266,43 @@
 
 			2.3.2.1 eddy_cuda options
 
-				--slm linear
+				eddy_cuda9.1 --imain=mrdegibbs \
+							 --mask=mask \
+							 --acqp=acqparams.txt \
+							 --index=index.txt \
+							 --slm=linear \
+							 --bvecs=bvec \
+							 --bvals=bval \
+							 --repol \
+							 --out=out \
+							 --niter=8 \
+							 --fwhm=10,8,4,2,0,0,0,0 \
+							 --ol_type=sw \
+							 --mporder=8 \
+							 --s2v_niter=8 \
+							 --verbose
 
-					MW4 has more than 60 directions, but the vectors do not cover the whole sphere.
+				Explanations:
+
+					--slm linear
+
+						MW4 has more than 60 directions, but the vectors do not cover the whole sphere.
+
+					--repol
+
+						outliers detection and replacement.
+
+					--niter=8 --fwhm=10,8,4,2,0,0,0,0
+					
+						instructs eddy to run 8 initial iterations with decreasing amounts of smoothing. During these iterations eddy estimates eddy current-induced fields, inter-volume movement parameters and detects and replaces outliers. The outlier detection is requested with the --repol flag.
+
+					--mporder=8 --s2v_niter=8
+					
+						tells eddy to run an additional 8 iterations. For the additional iterations the movement model is replaced by a slice-to-vol method with 9 (8+1) degrees of freedom per movement parameter and volume. During these additional iterations the estimates of the eddy current-induced fields and the outliers are also further refined.
+
+					--ol_type=sw
+
+						Slice-wise (sw) is the default and most basic way of estimating outliers. Since MAS/OATS/SCS DWI data do not use multi-band, only slice-wise outliers are detected.
 
 			2.3.2.2 eddy QC
 
