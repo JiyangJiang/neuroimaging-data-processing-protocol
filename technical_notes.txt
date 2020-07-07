@@ -188,6 +188,16 @@
 
 					segmentThalamicNuclei.sh <subj> <SUBJECTS_DIR>
 
+		1.4.9 Harmonisation of FreeSurfer results
+
+			1.4.9.1 ComBat
+
+				1.4.9.1.1 OATS
+
+					1.4.9.1.1.1 cross-sectional
+
+					1.4.9.1.1.2 longitudinal
+
 	1.5 fsl
 
 		1.5.1 fsl_anat
