@@ -92,7 +92,6 @@
 
 			Regional white matter volumes. In ‘recon-all -aurorecon3’, the command ‘mri_aparc2aseg’ is invoked with the flag ‘—hypo-as-wm’ (Ref : https://ftp.nmr.mgh.harvard.edu/pub/docs/tarballs_for_courses/FreeSurferTutorial-2012.pdf) which based on the help message means ‘label hypointensities as WM’. This ‘mri_aparc2seg’ command outputs wmparc.mgz file, and the wm vol was extracted from wmparc.stats (using ‘asegstats2table –stats wmparc.stats’). Therefore, WM vol in these files should include hypointense regions.
 
-		+++ TO-DO : split cross-sectional results for each individual Wave.
 
 	1.7 Lobar volumes
 

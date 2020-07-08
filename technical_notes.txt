@@ -198,6 +198,8 @@
 
 					1.4.9.1.1.2 longitudinal
 
+		1.4.10 Extract measures
+
 	1.5 fsl
 
 		1.5.1 fsl_anat
