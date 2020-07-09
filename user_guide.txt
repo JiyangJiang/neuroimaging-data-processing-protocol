@@ -146,7 +146,23 @@
 
 	2.1 Hippocampal subfields
 
+		2.1.1 Citation
+
+			A computational atlas of the hippocampal formation using ex vivo, ultra-high resolution MRI: Application to adaptive segmentation of in vivo MRI. Iglesias, J.E., Augustinack, J.C., Nguyen, K., Player, C.M., Player, A., Wright, M., Roy, N., Frosch, M.P., Mc Kee, A.C., Wald, L.L., Fischl, B., and Van Leemput, K. Neuroimage, 115, July 2015, 117-137.
+
+			If longitudinal data are used, also cite:
+
+			Bayesian longitudinal segmentation of hippocampal substructures in brain MRI using subject-specific atlases. Iglesias JE, Van Leemput K, Augustinack J, Insausti R, Fischl B, Reuter M. Neuroimage, 141, November 2016, 542-555
+
 	2.2 Amygdalar substructures
+
+		2.2.1 Citation
+
+			High-resolution magnetic resonance imaging reveals nuclei of the human amygdala: manual segmentation to automatic atlas. Saygin ZM & Kliemann D (joint 1st authors), Iglesias JE, van der Kouwe AJW, Boyd E, Reuter M, Stevens A, Van Leemput K, Mc Kee A, Frosch MP, Fischl B, Augustinack JC. Neuroimage, 155, July 2017, 370-382.
+
+			If longitudinal data are used, also cite:
+
+			Bayesian longitudinal segmentation of hippocampal substructures in brain MRI using subject-specific atlases. Iglesias JE, Van Leemput K, Augustinack J, Insausti R, Fischl B, Reuter M. Neuroimage, 141, November 2016, 542-555
 
 	2.3 Brainstem substructures
 
